@@ -48,8 +48,13 @@
 #include <QtGui/qpainter.h>
 
 #include <gst/gst.h>
+
+#if !GST_CHECK_VERSION(1,0,0)
 #include <gst/interfaces/xoverlay.h>
 #include <gst/interfaces/propertyprobe.h>
+#else
+#include <gst/video/videooverlay.h>
+#endif
 
 QT_BEGIN_NAMESPACE
 
@@ -177,9 +182,13 @@ bool QGstreamerVideoWidgetControl::processSyncMessage(const QGstreamerMessage &m
 {
     GstMessage* gm = message.rawMessage();
 
+#if !GST_CHECK_VERSION(1,0,0)
     if (gm && (GST_MESSAGE_TYPE(gm) == GST_MESSAGE_ELEMENT) &&
             gst_structure_has_name(gm->structure, "prepare-xwindow-id")) {
-
+#else
+      if (gm && (GST_MESSAGE_TYPE(gm) == GST_MESSAGE_ELEMENT) &&
+              gst_structure_has_name(gst_message_get_structure(gm), "prepare-window-handle")) {
+#endif
         setOverlay();
         QMetaObject::invokeMethod(this, "updateNativeVideoSize", Qt::QueuedConnection);
         return true;
@@ -207,9 +216,15 @@ bool QGstreamerVideoWidgetControl::processBusMessage(const QGstreamerMessage &me
 
 void QGstreamerVideoWidgetControl::setOverlay()
 {
+#if !GST_CHECK_VERSION(1,0,0)
     if (m_videoSink && GST_IS_X_OVERLAY(m_videoSink)) {
         gst_x_overlay_set_xwindow_id(GST_X_OVERLAY(m_videoSink), m_windowId);
     }
+#else
+    if (m_videoSink && GST_IS_VIDEO_OVERLAY(m_videoSink)) {
+        gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(m_videoSink), m_windowId);
+    }
+#endif
 }
 
 void QGstreamerVideoWidgetControl::updateNativeVideoSize()
@@ -217,7 +232,11 @@ void QGstreamerVideoWidgetControl::updateNativeVideoSize()
     if (m_videoSink) {
         //find video native size to update video widget size hint
         GstPad *pad = gst_element_get_static_pad(m_videoSink,"sink");
+#if !GST_CHECK_VERSION(1,0,0)
         GstCaps *caps = gst_pad_get_negotiated_caps(pad);
+#else
+        GstCaps *caps = gst_pad_get_current_caps(pad);
+#endif
         gst_object_unref(GST_OBJECT(pad));
 
         if (caps) {
@@ -233,8 +252,13 @@ void QGstreamerVideoWidgetControl::updateNativeVideoSize()
 
 void QGstreamerVideoWidgetControl::windowExposed()
 {
+#if !GST_CHECK_VERSION(1,0,0)
     if (m_videoSink && GST_IS_X_OVERLAY(m_videoSink))
         gst_x_overlay_expose(GST_X_OVERLAY(m_videoSink));
+#else
+    if (m_videoSink && GST_IS_VIDEO_OVERLAY(m_videoSink))
+        gst_video_overlay_expose(GST_VIDEO_OVERLAY(m_videoSink));
+#endif
 }
 
 QWidget *QGstreamerVideoWidgetControl::videoWidget()
