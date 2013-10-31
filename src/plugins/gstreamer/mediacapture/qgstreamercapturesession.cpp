@@ -501,7 +501,12 @@ GstElement *QGstreamerCaptureSession::buildImageCapture()
 
     GstPad *pad = gst_element_get_static_pad(queue, "src");
     Q_ASSERT(pad);
+
+#if GST_CHECK_VERSION(1,0,0)
+    gst_pad_add_probe(pad, GST_PAD_PROBE_TYPE_BUFFER, passImageFilter, this);
+#else
     gst_pad_add_buffer_probe(pad, G_CALLBACK(passImageFilter), this);
+#endif
     gst_object_unref(GST_OBJECT(pad));
 
     g_object_set(G_OBJECT(sink), "signal-handoffs", TRUE, NULL);
