@@ -6,6 +6,9 @@ Group:      Base/Libraries
 License:    LGPL-2.1+ or GPL-3.0
 URL:        http://qt.digia.com
 Source0:    %{name}-%{version}.tar.bz2
+%if "%{profile}" == "generic"
+ExclusiveArch:
+%endif
 BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtgui-devel
 BuildRequires:  qt5-qtwidgets-devel
