@@ -191,13 +191,13 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 %{_libdir}/libqgsttools_p.prl
 %{_libdir}/pkgconfig/*
 %{_includedir}/qt5/*
-%{_datadir}/qt5/mkspecs/
-%{_libdir}/cmake/
+%{_datadir}/qt5/mkspecs/*
+%{_libdir}/cmake/*
 
 
 %files -n qt5-qtdeclarative-import-multimedia
 %defattr(-,root,root,-)
-%{_libdir}/qt5/qml/QtMultimedia/
+%{_libdir}/qt5/qml/QtMultimedia/*
 
 %files gsttools
 %defattr(-,root,root,-)
