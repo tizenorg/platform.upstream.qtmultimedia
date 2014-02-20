@@ -23,12 +23,14 @@ BuildRequires:  fdupes
 #BuildRequires:  pkgconfig(libpulse-mainloop-glib)
 BuildRequires:  pkgconfig(gstreamer-0.10)
 BuildRequires:  pkgconfig(gstreamer-base-0.10)
+BuildRequires:  pkgconfig(gstreamer-plugins-base-0.10)
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
 BuildRequires:  pkgconfig(gstreamer-audio-0.10)
 BuildRequires:  pkgconfig(gstreamer-video-0.10)
 BuildRequires:  pkgconfig(gstreamer-pbutils-0.10)
 BuildRequires:  pkgconfig(gstreamer-app-0.10)
 BuildRequires:  pkgconfig(gstreamer-plugins-bad-0.10)
+BuildRequires:  gst-plugins-good
 
 %description
 Qt is a cross-platform application and UI framework. Using Qt, you can
