@@ -18,7 +18,8 @@ win32 {
     qtCompileTest(alsa)
     qtCompileTest(pulseaudio)
     !done_config_gstreamer {
-        gstver=1.0
+        gstver=0.10
+        !isEmpty(GST_VERSION): gstver=$$GST_VERSION
         cache(GST_VERSION, set, gstver);
         qtCompileTest(gstreamer) {
             qtCompileTest(gstreamer_photography)
@@ -26,7 +27,7 @@ win32 {
             qtCompileTest(gstreamer_appsrc)
             qtCompileTest(linux_v4l)
         } else {
-            gstver=0.10
+            gstver=1.0
             cache(GST_VERSION, set, gstver);
             # Force a re-run of the test
             CONFIG -= done_config_gstreamer
