@@ -1,14 +1,11 @@
 Name:       qt5-qtmultimedia
 Summary:    Qt Multimedia module
-Version:    5.2.2
+Version:    5.3alpha
 Release:    0
 Group:      Base/Libraries
 License:    LGPL-2.1+ or GPL-3.0
 URL:        http://qt.digia.com
 Source0:    %{name}-%{version}.tar.bz2
-%if "%{profile}" == "generic"
-ExclusiveArch:
-%endif
 BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtgui-devel
 BuildRequires:  qt5-qtwidgets-devel
@@ -21,6 +18,15 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  fdupes
 #BuildRequires:  pkgconfig(libpulse)
 #BuildRequires:  pkgconfig(libpulse-mainloop-glib)
+%if "%{profile}" == "generic" || "%{profile}" == "ivi"
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gstreamer-base-1.0)
+BuildRequires:  pkgconfig(gstreamer-audio-1.0)
+BuildRequires:  pkgconfig(gstreamer-video-1.0)
+BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
+BuildRequires:  pkgconfig(gstreamer-plugins-bad-1.0)
+%else
 BuildRequires:  pkgconfig(gstreamer-0.10)
 BuildRequires:  pkgconfig(gstreamer-base-0.10)
 BuildRequires:  pkgconfig(gstreamer-interfaces-0.10)
@@ -29,6 +35,7 @@ BuildRequires:  pkgconfig(gstreamer-video-0.10)
 BuildRequires:  pkgconfig(gstreamer-pbutils-0.10)
 BuildRequires:  pkgconfig(gstreamer-app-0.10)
 BuildRequires:  pkgconfig(gstreamer-plugins-bad-0.10)
+%endif
 
 %description
 Qt is a cross-platform application and UI framework. Using Qt, you can
@@ -120,6 +127,14 @@ This package contains the M3U playlist support
 # %description plugin-audio-pulseaudio
 # This package contains the pulse audio sound effect support.
 
+%package plugin-audio-alsa
+Summary:    Qt Multimedia - Alsa Audio plugin
+Group:      Base/Libraries
+Requires:   %{name} = %{version}-%{release}
+
+%description plugin-audio-alsa
+This package contains the pulse audio sound effect support.
+
 #### Build section
 
 %prep
@@ -210,11 +225,15 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 
 %files plugin-mediaservice-gstcamerabin
 %defattr(-,root,root,-)
+%if ! ("%{profile}" == "ivi" || "%{profile}" == "generic")
 %{_libdir}/qt5/plugins/mediaservice/libgstcamerabin.so
+%endif
 
 %files plugin-mediaservice-gstmediacapture
 %defattr(-,root,root,-)
+%if ! ("%{profile}" == "ivi" || "%{profile}" == "generic")
 %{_libdir}/qt5/plugins/mediaservice/libgstmediacapture.so
+%endif
 
 %files plugin-mediaservice-gstmediaplayer
 %defattr(-,root,root,-)
@@ -227,5 +246,9 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 # %files plugin-audio-pulseaudio
 # %defattr(-,root,root,-)
 # %{_libdir}/qt5/plugins/audio/libqtmedia_pulse.so
+
+%files plugin-audio-alsa
+%defattr(-,root,root,-)
+%{_libdir}/qt5/plugins/audio/libqtaudio_alsa.so
 
 #### No changelog section, separate $pkg.changelog contains the history
