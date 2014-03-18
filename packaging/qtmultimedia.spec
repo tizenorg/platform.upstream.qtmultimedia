@@ -18,7 +18,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  fdupes
 #BuildRequires:  pkgconfig(libpulse)
 #BuildRequires:  pkgconfig(libpulse-mainloop-glib)
-%if "%{profile}" == "generic" || "%{profile}" == "ivi"
+%if "%{profile}" == "generic" || "%{profile}" == "ivi"  || "%{profile}" == "mobile"
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-base-1.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
@@ -225,13 +225,13 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 
 %files plugin-mediaservice-gstcamerabin
 %defattr(-,root,root,-)
-%if ! ("%{profile}" == "ivi" || "%{profile}" == "generic")
+%if ! ("%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
 %{_libdir}/qt5/plugins/mediaservice/libgstcamerabin.so
 %endif
 
 %files plugin-mediaservice-gstmediacapture
 %defattr(-,root,root,-)
-%if ! ("%{profile}" == "ivi" || "%{profile}" == "generic")
+%if ! ("%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
 %{_libdir}/qt5/plugins/mediaservice/libgstmediacapture.so
 %endif
 
