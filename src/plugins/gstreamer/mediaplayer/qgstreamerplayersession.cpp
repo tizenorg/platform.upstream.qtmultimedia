@@ -1818,7 +1818,7 @@ GstPadProbeReturn QGstreamerPlayerSession::padVideoBufferProbe(GstPad *pad, GstP
 
 #else
 
-static gboolean QGstreamerPlayerSession::padVideoBufferProbe(GstPad *pad, GstBuffer *buffer, gpointer user_data)
+gboolean QGstreamerPlayerSession::padVideoBufferProbe(GstPad *pad, GstBuffer *buffer, gpointer user_data)
 {
     Q_UNUSED(pad);
 

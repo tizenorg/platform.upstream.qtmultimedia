@@ -587,7 +587,7 @@ int QGstUtils::cameraOrientation(const QString &device, GstElementFactory * fact
 
 void qt_gst_object_ref_sink(gpointer object)
 {
-#if (GST_VERSION_MAJOR >= 0) && (GST_VERSION_MINOR >= 10) && (GST_VERSION_MICRO >= 24)
+#if GST_CHECK_VERSION(0,10,24)
     gst_object_ref_sink(object);
 #else
     g_return_if_fail (GST_IS_OBJECT(object));
