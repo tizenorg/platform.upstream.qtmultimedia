@@ -18,7 +18,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  fdupes
 #BuildRequires:  pkgconfig(libpulse)
 #BuildRequires:  pkgconfig(libpulse-mainloop-glib)
-%if "%{profile}" == "generic" || "%{profile}" == "ivi"  || "%{profile}" == "mobile"
+%if "%{profile}" == "common"  || "%{profile}" == "generic" || "%{profile}" == "ivi"  || "%{profile}" == "mobile"
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-base-1.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
@@ -123,7 +123,7 @@ This package contains the M3U playlist support
 # Summary:    Qt Multimedia - Pulse Audio plugin
 # Group:      Base/Libraries
 # Requires:   %{name} = %{version}-%{release}
-# 
+#
 # %description plugin-audio-pulseaudio
 # This package contains the pulse audio sound effect support.
 
