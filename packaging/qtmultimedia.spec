@@ -18,7 +18,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  fdupes
 #BuildRequires:  pkgconfig(libpulse)
 #BuildRequires:  pkgconfig(libpulse-mainloop-glib)
-%if "%{profile}" == "generic" || "%{profile}" == "ivi"  || "%{profile}" == "mobile"
+%if "%{profile}" == "common"  || "%{profile}" == "generic" || "%{profile}" == "ivi"  || "%{profile}" == "mobile"
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-base-1.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
@@ -123,7 +123,7 @@ This package contains the M3U playlist support
 # Summary:    Qt Multimedia - Pulse Audio plugin
 # Group:      Base/Libraries
 # Requires:   %{name} = %{version}-%{release}
-# 
+#
 # %description plugin-audio-pulseaudio
 # This package contains the pulse audio sound effect support.
 
@@ -225,13 +225,13 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 
 %files plugin-mediaservice-gstcamerabin
 %defattr(-,root,root,-)
-%if ! ("%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
+%if ! ("%{profile}" == "common" || "%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
 %{_libdir}/qt5/plugins/mediaservice/libgstcamerabin.so
 %endif
 
 %files plugin-mediaservice-gstmediacapture
 %defattr(-,root,root,-)
-%if ! ("%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
+%if ! ("%{profile}" == "common" || "%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
 %{_libdir}/qt5/plugins/mediaservice/libgstmediacapture.so
 %endif
 
