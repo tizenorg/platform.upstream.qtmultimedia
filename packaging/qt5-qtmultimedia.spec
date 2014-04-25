@@ -6,6 +6,7 @@ Group:      Base/Libraries
 License:    LGPL-2.1+ or GPL-3.0
 URL:        http://qt.digia.com
 Source0:    %{name}-%{version}.tar.bz2
+Source1001: %{name}.manifest
 BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtgui-devel
 BuildRequires:  qt5-qtwidgets-devel
@@ -139,6 +140,7 @@ This package contains the pulse audio sound effect support.
 
 %prep
 %setup -q -n %{name}-%{version}/qtmultimedia
+cp %{SOURCE1001} .
 
 %build
 export QTDIR=/usr/share/qt5
@@ -184,6 +186,7 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 
 %files
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/libQt5Multimedia.so.5
 %{_libdir}/libQt5Multimedia.so.5.*
 %{_libdir}/libQt5MultimediaWidgets.so.5
@@ -193,6 +196,7 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 
 %files devel
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/libQt5Multimedia.so
 %{_libdir}/libQt5MultimediaWidgets.so
 %{_libdir}/libQt5MultimediaQuick_p.so
@@ -212,43 +216,52 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 
 %files -n qt5-qtdeclarative-import-multimedia
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/qml/QtMultimedia/*
 
 %files gsttools
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/libqgsttools_p.so.1
 %{_libdir}/libqgsttools_p.so.1.*
 
 %files plugin-mediaservice-gstaudiodecoder
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/plugins/mediaservice/libgstaudiodecoder.so
 
 %files plugin-mediaservice-gstcamerabin
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %if ! ("%{profile}" == "common" || "%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
 %{_libdir}/qt5/plugins/mediaservice/libgstcamerabin.so
 %endif
 
 %files plugin-mediaservice-gstmediacapture
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %if ! ("%{profile}" == "common" || "%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
 %{_libdir}/qt5/plugins/mediaservice/libgstmediacapture.so
 %endif
 
 %files plugin-mediaservice-gstmediaplayer
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/plugins/mediaservice/libgstmediaplayer.so
 
 %files plugin-playlistformats-m3u
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/plugins/playlistformats/libqtmultimedia_m3u.so
 
 # %files plugin-audio-pulseaudio
 # %defattr(-,root,root,-)
+%manifest %{name}.manifest
 # %{_libdir}/qt5/plugins/audio/libqtmedia_pulse.so
 
 %files plugin-audio-alsa
 %defattr(-,root,root,-)
+%manifest %{name}.manifest
 %{_libdir}/qt5/plugins/audio/libqtaudio_alsa.so
 
 #### No changelog section, separate $pkg.changelog contains the history
