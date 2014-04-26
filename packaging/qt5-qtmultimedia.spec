@@ -1,3 +1,10 @@
+
+%if "%{tizen}" != "2.1"
+%define _with_gstreamer1 1
+%endif
+
+%bcond_with gstreamer1
+
 Name:       qt5-qtmultimedia
 Summary:    Qt Multimedia module
 Version:    5.2.90+alpha
@@ -19,7 +26,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  fdupes
 #BuildRequires:  pkgconfig(libpulse)
 #BuildRequires:  pkgconfig(libpulse-mainloop-glib)
-%if "%{profile}" == "common"  || "%{profile}" == "generic" || "%{profile}" == "ivi"  || "%{profile}" == "mobile"
+%if %{with gstreamer1}
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-base-1.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
@@ -234,14 +241,16 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 %defattr(-,root,root,-)
 %manifest %{name}.manifest
 %if ! ("%{profile}" == "common" || "%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
-%{_libdir}/qt5/plugins/mediaservice/libgstcamerabin.so
+#commented out until the work on gstreamer-1.0 will be finished in Qt
+#%{_libdir}/qt5/plugins/mediaservice/libgstcamerabin.so
 %endif
 
 %files plugin-mediaservice-gstmediacapture
 %defattr(-,root,root,-)
 %manifest %{name}.manifest
 %if ! ("%{profile}" == "common" || "%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
-%{_libdir}/qt5/plugins/mediaservice/libgstmediacapture.so
+#commented out until the work on gstreamer-1.0 will be finished in Qt
+#%{_libdir}/qt5/plugins/mediaservice/libgstmediacapture.so
 %endif
 
 %files plugin-mediaservice-gstmediaplayer
