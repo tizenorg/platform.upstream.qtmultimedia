@@ -1,5 +1,13 @@
 
-%if "%{tizen}" != "2.1"
+%if "%{tizen}" == "2.1"
+%define profile mobile
+%endif
+
+%if "%{tizen}" == "2.3"
+%define profile wearable
+%endif
+
+%if "%{profile}" != "mobile" && "%{profile}" != "wearable"
 %define _with_gstreamer1 1
 %endif
 
@@ -42,7 +50,9 @@ BuildRequires:  pkgconfig(gstreamer-audio-0.10)
 BuildRequires:  pkgconfig(gstreamer-video-0.10)
 BuildRequires:  pkgconfig(gstreamer-pbutils-0.10)
 BuildRequires:  pkgconfig(gstreamer-app-0.10)
+%if "%{profile}" != "wearable"
 BuildRequires:  pkgconfig(gstreamer-plugins-bad-0.10)
+%endif
 %endif
 
 %description
