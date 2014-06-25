@@ -1,8 +1,18 @@
 
-%if "%{tizen}" != "2.1"
+%if "%{tizen}" == "2.1"
+%define profile mobile
+%endif
+
+%if "%{tizen}" == "2.3"
+%define profile wearable
+%define _with_only_free_components 1
+%endif
+
+%if "%{profile}" != "mobile" && "%{profile}" != "wearable"
 %define _with_gstreamer1 1
 %endif
 
+%bcond_with only_free_components
 %bcond_with gstreamer1
 
 Name:       qt5-qtmultimedia
@@ -42,7 +52,9 @@ BuildRequires:  pkgconfig(gstreamer-audio-0.10)
 BuildRequires:  pkgconfig(gstreamer-video-0.10)
 BuildRequires:  pkgconfig(gstreamer-pbutils-0.10)
 BuildRequires:  pkgconfig(gstreamer-app-0.10)
+%if ! %{with only_free_components}
 BuildRequires:  pkgconfig(gstreamer-plugins-bad-0.10)
+%endif
 %endif
 
 %description
