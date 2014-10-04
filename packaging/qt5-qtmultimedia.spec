@@ -158,10 +158,10 @@ This package contains the pulse audio sound effect support.
 #### Build section
 
 %prep
-%setup -q -n %{name}-%{version}/qtmultimedia
-cp %{SOURCE1001} .
+%setup -q -n %{name}-%{version}
 
 %build
+cp %{SOURCE1001} .
 export QTDIR=/usr/share/qt5
 touch .git
 
