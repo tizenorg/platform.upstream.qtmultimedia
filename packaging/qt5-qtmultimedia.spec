@@ -17,7 +17,7 @@
 
 Name:       qt5-qtmultimedia
 Summary:    Qt Multimedia module
-Version:    5.3.1
+Version:    5.3.99+beta1
 Release:    0
 Group:      Base/Libraries
 License:    LGPL-2.1+ or GPL-3.0
@@ -93,6 +93,15 @@ Requires:   %{name} = %{version}-%{release}
 
 %description gsttools
 This package contains a shared library for the GStreamer QtMultimedia media services
+
+%package plugin-video-videonode-egl
+Summary:    Qt Multimedia - EGLImageKHR video node
+Group:      Base/Libraries
+Requires:   %{name} = %{version}-%{release}
+
+%description plugin-video-videonode-egl
+This package contains VideoNode plugin which allows direct rendering of
+0;115;0cEGLImageKHR backed video frames
 
 %package plugin-mediaservice-gstaudiodecoder
 Summary:    Qt Multimedia - GStreamer audio decoder media service
@@ -238,6 +247,11 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 %manifest %{name}.manifest
 %{_libdir}/qt5/qml/QtMultimedia/*
 
+%files plugin-video-videonode-egl
+%defattr(-,root,root,-)
+%manifest %{name}.manifest
+%{_libdir}/qt5/plugins/video/videonode/libeglvideonode.so
+
 %files gsttools
 %defattr(-,root,root,-)
 %manifest %{name}.manifest
@@ -252,18 +266,12 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 %files plugin-mediaservice-gstcamerabin
 %defattr(-,root,root,-)
 %manifest %{name}.manifest
-%if ! ("%{profile}" == "common" || "%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
-#commented out until the work on gstreamer-1.0 will be finished in Qt
-#%{_libdir}/qt5/plugins/mediaservice/libgstcamerabin.so
-%endif
+%{_libdir}/qt5/plugins/mediaservice/libgstcamerabin.so
 
 %files plugin-mediaservice-gstmediacapture
 %defattr(-,root,root,-)
 %manifest %{name}.manifest
-%if ! ("%{profile}" == "common" || "%{profile}" == "ivi" || "%{profile}" == "generic" || "%{profile}" == "mobile" )
-#commented out until the work on gstreamer-1.0 will be finished in Qt
-#%{_libdir}/qt5/plugins/mediaservice/libgstmediacapture.so
-%endif
+%{_libdir}/qt5/plugins/mediaservice/libgstmediacapture.so
 
 %files plugin-mediaservice-gstmediaplayer
 %defattr(-,root,root,-)
@@ -277,7 +285,7 @@ find %{buildroot}%{_libdir} -type f -name '*.prl' \
 
 # %files plugin-audio-pulseaudio
 # %defattr(-,root,root,-)
-%manifest %{name}.manifest
+# %manifest %{name}.manifest
 # %{_libdir}/qt5/plugins/audio/libqtmedia_pulse.so
 
 %files plugin-audio-alsa
