@@ -8,7 +8,7 @@
 %define _with_only_free_components 1
 %endif
 
-%if "%{profile}" != "mobile" && "%{profile}" != "wearable"
+%if 0%{tizen_version_major} >= 3
 %define _with_gstreamer1 1
 %endif
 
