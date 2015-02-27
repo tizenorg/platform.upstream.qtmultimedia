@@ -1,10 +1,5 @@
 
-%if "%{tizen}" == "2.1"
-%define profile mobile
-%endif
-
-%if "%{tizen}" == "2.3"
-%define profile wearable
+%if "%{tizen_major_version}" < "3"
 %define _with_only_free_components 1
 %endif
 
