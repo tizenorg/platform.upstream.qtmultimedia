@@ -1,14 +1,9 @@
 
-%if "%{tizen}" == "2.1"
-%define profile mobile
-%endif
-
-%if "%{tizen}" == "2.3"
-%define profile wearable
+%if "%{tizen_major_version}" < "3"
 %define _with_only_free_components 1
 %endif
 
-%if 0%{tizen_version_major} >= 3
+%if "%{tizen_version_major}" > "2"
 %define _with_gstreamer1 1
 %endif
 
